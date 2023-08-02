@@ -36,7 +36,8 @@ To install the MultiPDF Chat App, please follow these steps:
 
 3. Obtain an API key from OpenAI and add it to the `.env` file in the project directory.
 ```commandline
-OPENAI_API_KEY=your_secrit_api_key
+OPENAI_API_KEY=your_secret_api_key
+HUGGINGFACEHUB_API_TOKEN=Your HuggingFaceHub API Token
 ```
 
 ## Usage
@@ -44,6 +45,8 @@ OPENAI_API_KEY=your_secrit_api_key
 To use the MultiPDF Chat App, follow these steps:
 
 1. Ensure that you have installed the required dependencies and added the OpenAI API key to the `.env` file.
+
+1a. If you want to use HUGGINFACEHUB set USE_HUGGINGFACE = True in app.py else set USE_HUGGINGFACE = False.
 
 2. Run the `main.py` file using the Streamlit CLI. Execute the following command:
    ```

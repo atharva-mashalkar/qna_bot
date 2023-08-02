@@ -2,13 +2,20 @@ import streamlit as st
 from dotenv import load_dotenv
 from PyPDF2 import PdfReader
 from langchain.text_splitter import CharacterTextSplitter
-from langchain.embeddings import OpenAIEmbeddings, HuggingFaceInstructEmbeddings
 from langchain.vectorstores import FAISS
-from langchain.chat_models import ChatOpenAI
 from langchain.memory import ConversationBufferMemory
 from langchain.chains import ConversationalRetrievalChain
 from htmlTemplates import css, bot_template, user_template
-from langchain.llms import HuggingFaceHub
+
+USE_HUGGINGFACE = True
+if USE_HUGGINGFACE:
+    from langchain.embeddings import HuggingFaceInstructEmbeddings
+    from langchain.embeddings import HuggingFaceEmbeddings
+    from langchain.llms import HuggingFaceHub
+else:
+    from langchain.embeddings import OpenAIEmbeddings
+    from langchain.chat_models import ChatOpenAI
+
 
 def get_pdf_text(pdf_docs):
     text = ""
@@ -31,15 +38,20 @@ def get_text_chunks(text):
 
 
 def get_vectorstore(text_chunks):
-    embeddings = OpenAIEmbeddings()
-    # embeddings = HuggingFaceInstructEmbeddings(model_name="hkunlp/instructor-xl")
+    if not USE_HUGGINGFACE:
+        embeddings = OpenAIEmbeddings()
+    else:
+        # embeddings = HuggingFaceInstructEmbeddings(model_name="hkunlp/instructor-xl")
+        embeddings = HuggingFaceEmbeddings()
     vectorstore = FAISS.from_texts(texts=text_chunks, embedding=embeddings)
     return vectorstore
 
 
 def get_conversation_chain(vectorstore):
-    llm = ChatOpenAI()
-    # llm = HuggingFaceHub(repo_id="google/flan-t5-xxl", model_kwargs={"temperature":0.5, "max_length":512})
+    if not USE_HUGGINGFACE:
+        llm = ChatOpenAI()
+    else:
+        llm = HuggingFaceHub(repo_id="google/flan-t5-xxl", model_kwargs={"temperature":0.6, "max_length":512})
 
     memory = ConversationBufferMemory(
         memory_key='chat_history', return_messages=True)
