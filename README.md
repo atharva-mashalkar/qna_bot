@@ -14,7 +14,7 @@
 
 ## Introduction
 
-The LLT Chat Bot is an intelligent application designed to enhance access to information within PDF documents. Users can upload multiple PDFs, from which the app extracts text and stores it in a FAISS vector store for efficient searching. The system allows users to pose questions related to the PDF content, which are then processed using OpenAI and Hugging Face APIs to provide relevant answers. This conversation is stored in-memory to utilize as context for future inquiries. This backend handles all core functionalities including PDF processing, data storage, API interactions, and dynamic context management.
+The LLM Chat Bot is an intelligent application designed to enhance access to information within PDF documents. Users can upload multiple PDFs, from which the app extracts text and stores it in a FAISS vector store for efficient searching. The system allows users to pose questions related to the PDF content, which are then processed using OpenAI and Hugging Face APIs to provide relevant answers. This conversation is stored in-memory to utilize as context for future inquiries. This backend handles all core functionalities including PDF processing, data storage, API interactions, and dynamic context management.
 
 ## Getting Started
 
