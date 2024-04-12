@@ -1,4 +1,5 @@
 import streamlit as st
+import os
 from dotenv import load_dotenv
 from PyPDF2 import PdfReader
 from langchain.text_splitter import CharacterTextSplitter
@@ -7,7 +8,7 @@ from langchain.memory import ConversationBufferMemory
 from langchain.chains import ConversationalRetrievalChain
 from htmlTemplates import css, bot_template, user_template
 
-USE_HUGGINGFACE = True
+USE_HUGGINGFACE = False
 if USE_HUGGINGFACE:
     from langchain.embeddings import HuggingFaceInstructEmbeddings
     from langchain.embeddings import HuggingFaceEmbeddings
@@ -77,7 +78,8 @@ def handle_userinput(user_question):
 
 
 def main():
-    load_dotenv()
+    # load_dotenv()
+    os.environ['OPENAI_API_KEY']="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"
     st.set_page_config(page_title="Chat with multiple PDFs",
                        page_icon=":books:")
     st.write(css, unsafe_allow_html=True)
